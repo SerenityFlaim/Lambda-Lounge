@@ -14,6 +14,13 @@ let solve a b c =
         if D<0. then None
         else Quadratic(((-b+sqrt(D))/(2.0*a), (-b-sqrt(D))/(2.0*a)))
 
+let circleSurface r = Math.PI * r * r
+
+let multiplySurfaceH s h = s * h
+let cylinderVolumeSuperPosition = circleSurface >> multiplySurfaceH
+let cylinderVolumeCurry r h = (circleSurface r) * h
+
+
 [<EntryPoint>]
 let main (argv :string[]) = 
     printfn "Hello World"
@@ -26,6 +33,28 @@ let main (argv :string[]) =
         None -> Console.WriteLine("No solution")
         | Linear(x) -> printfn "Linear equation x=%f" x
         | Quadratic(x1, x2) -> printfn "Quadratic equation: x1=%f, x2=%f" x1 x2
+
+    Console.WriteLine("<<----------------->>")
+    Console.WriteLine("Cylinder Volume via SuperPosition")
+
+    Console.WriteLine("Enter radius:")
+    let r = System.Console.ReadLine() |> float
+    Console.WriteLine("Enter height:")
+    let h = System.Console.ReadLine() |> float
+
+    let cylinder_vol = cylinderVolumeSuperPosition r h
+    printfn "Cylinder Volume: %f" cylinder_vol
+
+    Console.WriteLine("<<----------------->>")
+    Console.WriteLine("Cylinder Volume via Curry")
+
+    Console.WriteLine("Enter radius:")
+    let r2 = System.Console.ReadLine() |> float
+    Console.WriteLine("Enter height:")
+    let h2 = System.Console.ReadLine() |> float
+
+    let cylinder_vol_c = cylinderVolumeCurry r h
+    printfn "Cylinder Volume: %f" cylinder_vol
 
     Console.WriteLine("<<----------------->>")
     0
