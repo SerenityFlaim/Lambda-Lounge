@@ -21,6 +21,11 @@ let cylinderVolumeSuperPosition = circleSurface >> multiplySurfaceH
 let cylinderVolumeCurry r h = (circleSurface r) * h
 
 
+let rec digitSumUp num = 
+    if num = 0 then 0
+    else (num % 10) + (digitSumUp(num / 10))
+
+
 [<EntryPoint>]
 let main (argv :string[]) = 
     printfn "Hello World"
@@ -57,4 +62,11 @@ let main (argv :string[]) =
     printfn "Cylinder Volume: %f" cylinder_vol
 
     Console.WriteLine("<<----------------->>")
+    Console.WriteLine("Digit Sum (Recursion UP)")
+
+    Console.WriteLine("Enter number:")
+    let num = Console.ReadLine() |> int
+
+    let sum = digitSumUp num
+    printfn "Digit sum of %d is: %d" num sum
     0
