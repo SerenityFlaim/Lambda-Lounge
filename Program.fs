@@ -1,42 +1,12 @@
 ﻿open System
-
-type SolveResult = 
-    None
-    | Linear of float
-    | Quadratic of float*float
-
-let solve a b c =
-    let D = b*b - 4.0*a*c
-    if a=0.0 then
-        if b=0. then None
-        else Linear(-c/b)
-    else
-        if D<0. then None
-        else Quadratic(((-b+sqrt(D))/(2.0*a), (-b-sqrt(D))/(2.0*a)))
-
-let circleSurface r = Math.PI * r * r
-let multiplySurfaceH s h = s * h
-
-let cylinderVolumeSuperPosition = circleSurface >> multiplySurfaceH
-let cylinderVolumeCurry r h = (circleSurface r) * h
-
-
-let rec digitSumUp num = 
-    if num = 0 then 0
-    else (num % 10) + (digitSumUp(num / 10))
-
-let digitSumDown num = 
-    let rec digitSumTail num acc = 
-        if num = 0 then acc
-        else
-            let digit = num % 10
-            let cur_num = num / 10
-            digitSumTail cur_num (acc + digit)
-    digitSumTail num 0
+open HelloWorld
+open QuadraticEquation
+open CylinderVolume
+open DigitSum
 
 [<EntryPoint>]
 let main (argv :string[]) = 
-    printfn "Hello World"
+    helloWorld
 
     Console.WriteLine("<<----------------->>")
     Console.WriteLine("Solving quadratic equation")
