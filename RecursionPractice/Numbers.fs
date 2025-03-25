@@ -35,19 +35,3 @@ let rec digitTraverseCondition num (func :int->int->int) acc (predicate :int->bo
         | false -> digitTraverseCondition next func acc predicate
         | true -> digitTraverseCondition next func (func acc digit) predicate
         
-let rec gcd x y = 
-    match y with
-    | 0 -> x
-    | _ -> gcd y (x % y)
-
-let mutPrimeTraverse number (func :int->int->int) init =
-    let rec primeTail number acc temp =
-        match temp with
-        | 0 -> acc
-        | _ -> 
-            let newAcc = if gcd number temp = 1 then (func acc temp) else acc
-            primeTail number newAcc (temp-1)
-    primeTail number init number
-
-let EulerFunction number = 
-    mutPrimeTraverse number (fun x y -> x+1) 0

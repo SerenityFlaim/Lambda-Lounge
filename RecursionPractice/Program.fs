@@ -1,6 +1,7 @@
 ﻿open System
 open Numbers
 open FavePL
+open Euler
 
 let SuperPL () = 
     Console.WriteLine("What is your favourite programming language?")
@@ -63,11 +64,16 @@ let CurryPL () =
         pl_curry favouritePL Console.WriteLine
 
         Console.WriteLine("<---------------->")
-        Console.WriteLine("Sum of mutually prime numbers with 24")
+        Console.WriteLine("Sum of mutually prime numbers of 24")
         let pr_sum = mutPrimeTraverse 24 (+) 0
         Console.WriteLine(pr_sum)
 
         Console.WriteLine("Euler function result for 24")
         let eu_res = EulerFunction 24
         Console.WriteLine(eu_res)
+
+        Console.WriteLine("<---------------->")
+        Console.WriteLine("Sum of even mutually prime numbers of 25")
+        let pr_sum_2 = mutPrimeTraverseCondition 25 (+) (fun x -> (x%2)=0) 0
+        Console.WriteLine(pr_sum_2)
         0
