@@ -61,7 +61,13 @@ let CurryPL () =
         SuperPL()
         let pl_curry = CurryPL()
         pl_curry favouritePL Console.WriteLine
-        // Console.WriteLine("What is your favourite programming language?")
-        // let user_choice = Console.ReadLine() |> string
-        // Console.WriteLine(favouritePL user_choice)
+
+        Console.WriteLine("<---------------->")
+        Console.WriteLine("Sum of mutually prime numbers with 24")
+        let pr_sum = mutPrimeTraverse 24 (+) 0
+        Console.WriteLine(pr_sum)
+
+        Console.WriteLine("Euler function result for 24")
+        let eu_res = EulerFunction 24
+        Console.WriteLine(eu_res)
         0
