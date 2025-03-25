@@ -1,5 +1,15 @@
 ﻿open System
 open Numbers
+open FavePL
+
+let SuperPL () = 
+    Console.WriteLine("What is your favourite programming language?")
+    (Console.ReadLine >> favouritePL >> Console.WriteLine) ()
+
+let CurryPL () =
+    Console.WriteLine("What is your favourite programming language?")
+    let func read proc write = write (proc (read ()))
+    func Console.ReadLine
 
 [<EntryPoint>]
     let main (argv :string[]) = 
@@ -46,4 +56,12 @@ open Numbers
         Console.WriteLine("8 count in 8488")
         let count8 = digitTraverseCondition 8488 (fun x y -> (x + 1)) 0 (fun x -> x=8)
         Console.WriteLine(count8)
+
+        Console.WriteLine("<---------------->")
+        SuperPL()
+        let pl_curry = CurryPL()
+        pl_curry favouritePL Console.WriteLine
+        // Console.WriteLine("What is your favourite programming language?")
+        // let user_choice = Console.ReadLine() |> string
+        // Console.WriteLine(favouritePL user_choice)
         0
