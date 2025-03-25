@@ -24,5 +24,14 @@ let rec digitTraverse num (func : int->int->int) acc =
     | 0 -> acc
     | n -> digitTraverse (n/10) func (func acc (n%10))
 
-
+let rec digitTraverseCondition num (func :int->int->int) acc (predicate :int->bool) = 
+    match num with
+    | 0 -> acc
+    | n ->
+        let digit = n%10
+        let next = n/10
+        let flag = predicate digit
+        match flag with
+        | false -> digitTraverseCondition next func acc predicate
+        | true -> digitTraverseCondition next func (func acc digit) predicate
         

@@ -34,4 +34,16 @@ open Numbers
         let tr_max = digitTraverse 3489 (fun x y -> if x > y then x else y) -1
         Console.WriteLine(tr_max)
 
+        Console.WriteLine("<---------------->")
+        Console.WriteLine("Product of even digits of 3489")
+        let evenProd = digitTraverseCondition 3489 (fun x y -> (x*y)) 1 (fun x -> (x%2)=0)
+        Console.WriteLine(evenProd)
+
+        Console.WriteLine("Max of uneven digits of 3489")
+        let unevenMax = digitTraverseCondition 3489 (fun x y -> if x > y then x else y) 0 (fun x -> (x%2)<>0)
+        Console.WriteLine(unevenMax)
+
+        Console.WriteLine("8 count in 8488")
+        let count8 = digitTraverseCondition 8488 (fun x y -> (x + 1)) 0 (fun x -> x=8)
+        Console.WriteLine(count8)
         0
