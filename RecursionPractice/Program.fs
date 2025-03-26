@@ -13,6 +13,27 @@ let CurryPL () =
     let func read proc write = write (proc (read ()))
     func Console.ReadLine
 
+let FuncChoice f_ix number =
+    match f_ix with
+    | 1 -> countPrimeDivisors number
+    | 2 -> countDigitDivisors3 number
+    | 3 -> findBestDivisor number
+    | _ -> 
+        Console.WriteLine("Incorrect function index")
+        0
+
+let CurryNumbers () = 
+    Console.WriteLine("Enter function index and argument number:
+    1 - Amount of prime divisors
+    2 - Sum of divisors multiple to 3 in digits
+    3 - Найти делитель числа, являющийся взаимно простым с наибольшим количеством цифр данного числа")
+    let args = (Console.ReadLine() |> Int32.Parse, Console.ReadLine() |> Int32.Parse)
+    let f_ix = fst args
+    let number = snd args
+
+    let result = FuncChoice f_ix number
+    Console.WriteLine(result)
+
 [<EntryPoint>]
     let main (argv :string[]) = 
 
@@ -90,4 +111,6 @@ let CurryPL () =
         Console.WriteLine("Найти делитель числа, являющийся взаимно простым с наибольшим количеством цифр данного числа - 150")
         let my_res3 = findBestDivisor 150
         Console.WriteLine(my_res3)
+
+        CurryNumbers()
         0
