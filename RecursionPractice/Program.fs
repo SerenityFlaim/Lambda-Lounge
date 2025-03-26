@@ -2,6 +2,7 @@
 open Numbers
 open FavePL
 open Euler
+open MyNumbers
 
 let SuperPL () = 
     Console.WriteLine("What is your favourite programming language?")
@@ -76,4 +77,17 @@ let CurryPL () =
         Console.WriteLine("Sum of even mutually prime numbers of 25")
         let pr_sum_2 = mutPrimeTraverseCondition 25 (+) (fun x -> (x%2)=0) 0
         Console.WriteLine(pr_sum_2)
+
+        Console.WriteLine("<---------------->")
+        Console.WriteLine("Amount of prime divisors of 24 (Euler)")
+        let my_res1 = countPrimeDivisors 24
+        Console.WriteLine(my_res1)
+
+        Console.WriteLine("Sum of divisors_3 of digits in 3489")
+        let my_res2 = countDigitDivisors3 3489
+        Console.WriteLine(my_res2)
+
+        Console.WriteLine("Найти делитель числа, являющийся взаимно простым с наибольшим количеством цифр данного числа - 150")
+        let my_res3 = findBestDivisor 150
+        Console.WriteLine(my_res3)
         0

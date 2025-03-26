@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="MyNumbers.fs" />
     <Compile Include="Euler.fs" />
     <Compile Include="FavePL.fs" />
     <Compile Include="Numbers.fs" />
