@@ -19,4 +19,10 @@ let main argv =
     let most_freq = frequencyElement arr
     Console.WriteLine("Most freak element:")
     Console.WriteLine(most_freq)
+
+    Console.WriteLine("<------------->")
+    let list = [1; 2; 8; 64; 4; 16; 9]
+    let squares = countSquares arr
+    Console.WriteLine("Number of elements, that can be other's squares:")
+    Console.WriteLine(squares)
     0

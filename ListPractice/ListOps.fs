@@ -84,3 +84,9 @@ let frequencyElement list =
     let maxFreq = maxList fL
     let index = pos fL maxFreq
     getIn list index
+
+
+let countSquares (list: int list) = 
+    let squares = list |> List.map(fun x -> x * x ) |> List.distinct
+
+    list |> List.filter (fun x -> List.contains x squares) |> List.length
