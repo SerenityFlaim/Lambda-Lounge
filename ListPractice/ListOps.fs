@@ -85,8 +85,26 @@ let frequencyElement list =
     let index = pos fL maxFreq
     getIn list index
 
-
+//8
 let countSquares (list: int list) = 
     let squares = list |> List.map(fun x -> x * x ) |> List.distinct
 
     list |> List.filter (fun x -> List.contains x squares) |> List.length
+
+//9
+let digitSum n = 
+    n |> abs |> string |> Seq.sumBy (fun c -> int c - int '0')
+
+let countDivisors n = 
+    let absN = abs n
+    [1..absN] |> List.filter (fun x -> absN % x = 0) |> List.length
+
+let conditionSort list condFunc reverse = 
+    list |> List.sortBy (fun x -> condFunc x, if reverse then -abs x else abs x)
+
+let createTuples listA listB listC = 
+    let sortedA = List.sortDescending listA
+    let sortedB = conditionSort listB digitSum false
+    let sortedC = conditionSort listC countDivisors true
+
+    List.zip3 sortedA sortedB sortedC

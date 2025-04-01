@@ -25,4 +25,13 @@ let main argv =
     let squares = countSquares arr
     Console.WriteLine("Number of elements, that can be other's squares:")
     Console.WriteLine(squares)
+
+    Console.WriteLine("<------------->")
+    Console.WriteLine("Tuples with conditions")
+    let listA = [6; 7; 2; 1]
+    let listB = [123; 9; 72; 52]
+    let listC = [8; 64; 28; 15]
+
+    let result = createTuples listA listB listC
+    Console.WriteLine(result)
     0
