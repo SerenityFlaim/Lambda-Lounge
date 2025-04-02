@@ -1,5 +1,6 @@
 ﻿open System
 open ListOps
+open ListTasks
 
 [<EntryPoint>]
 let main argv =
@@ -35,10 +36,18 @@ let main argv =
     let result = createTuples listA listB listC
     Console.WriteLine(result)
 
-    Console.WriteLine("<------------->")
-    Console.WriteLine("Enter strings (empty string as finish):")
-    let stringList = readStrings
+    // Console.WriteLine("<------------->")
+    // Console.WriteLine("Enter strings (empty string as finish):")
+    // let stringList = readStrings
 
-    let sortedStrings = sortByLength stringList
-    Console.WriteLine("Sorted strings:\n{0}", String.Join("\n", sortedStrings))
+    // let sortedStrings = sortByLength stringList
+    // Console.WriteLine("Sorted strings:\n{0}", String.Join("\n", sortedStrings))
+
+    Console.WriteLine("<------------->")
+    Console.WriteLine("1.2 - Find min index in list")
+    let list = [1; 2; 8; -64; 4; 16; 9]
+    let minList = findMinIndexList list
+    let minChurch = findMinIndexChurch list
+    Console.WriteLine("List: {0}", minList)
+    Console.WriteLine("Church: {0}", minChurch)
     0
