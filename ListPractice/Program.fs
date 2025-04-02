@@ -62,4 +62,10 @@ let main argv =
     let list = [1; -2; -2; 3; 4; 16; 64]
     Console.WriteLine("List: {0}", countMinInRangeList list 1 5)
     Console.WriteLine("Church: {0}", countMinInRangeChurch list 1 5)
+
+    Console.WriteLine("<------------->")
+    Console.WriteLine("1.32 - Local max elements")
+    let list = [1; 3; 2; 5; 4]
+    Console.WriteLine("List: {0}", countLocalMaxList list)
+    Console.WriteLine("Church: {0}", countLocalMaxChurch list)
     0

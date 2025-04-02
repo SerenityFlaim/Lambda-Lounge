@@ -54,7 +54,7 @@ let countMinInRangeList list a b =
     sublist |> List.filter (fun x -> x = minVal) |> List.length
 
 // 1.22.2
-let countMinInRangeChurch lst a b =
+let countMinInRangeChurch list a b =
     let rec takeRange start stop acc list = 
         match list with
         | [] -> acc
@@ -63,7 +63,7 @@ let countMinInRangeChurch lst a b =
             elif start > 0 then takeRange (start-1) (stop-1) acc tail
             else takeRange start (stop-1) (head::acc) tail
     
-    let sublist = takeRange a b [] lst |> List.rev
+    let sublist = takeRange a b [] list |> List.rev
     
     let minVal = findMinElement sublist
     
@@ -73,3 +73,21 @@ let countMinInRangeChurch lst a b =
         | head::tail -> countMin (if head = minVal then cnt + 1 else cnt) tail
     
     countMin 0 sublist
+
+// 1.32.1
+let countLocalMaxList list =
+    list
+    |> List.windowed 3
+    |> List.filter (function 
+        | [a; b; c] -> b > a && b > c
+        | _ -> false)
+    |> List.length
+
+// 1.32.2
+let countLocalMaxChurch list =
+    let rec count acc list = 
+        match list with
+        | a::b::c::tail when b > a && b > c -> count (acc + 1) (b::c::tail)
+        | _::tail -> count acc tail
+        | _ -> acc
+    count 0 list
