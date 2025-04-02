@@ -79,4 +79,8 @@ let main argv =
     Console.WriteLine("1.52 - Elements below average")
     Console.WriteLine("List: {0}", primeFactorsList 36)
     Console.WriteLine("Church: {0}", primeFactorsChurch 36)
+
+    Console.WriteLine("<-------->")
+    Console.WriteLine("Order of lowercase letters")
+    Console.WriteLine(areLettersOrdered "aBcDeFg")
     0
