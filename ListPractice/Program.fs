@@ -50,4 +50,10 @@ let main argv =
     let minChurch = findMinIndexChurch list
     Console.WriteLine("List: {0}", minList)
     Console.WriteLine("Church: {0}", minChurch)
+
+    Console.WriteLine("<------------->")
+    Console.WriteLine("1.12 - Reverse list between max and min")
+    let list = [1; -2; 8; 3; 4; 16; 64]
+    Console.WriteLine("List: {0}", reverseBetweenMinMaxList list)
+    Console.WriteLine("Church: {0}", reverseBetweenMinMaxChurch list)
     0
