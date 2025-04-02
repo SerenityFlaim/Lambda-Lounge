@@ -68,4 +68,10 @@ let main argv =
     let list = [1; 3; 2; 5; 4]
     Console.WriteLine("List: {0}", countLocalMaxList list)
     Console.WriteLine("Church: {0}", countLocalMaxChurch list)
+
+    Console.WriteLine("<------------->")
+    Console.WriteLine("1.42 - Elements below average")
+    let list = [1; -2; 8; 3; 4; 16; 64]
+    Console.WriteLine("List: {0}", belowAverageList list)
+    Console.WriteLine("Church: {0}", belowAverageChurch list)
     0

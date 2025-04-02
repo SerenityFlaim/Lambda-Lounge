@@ -91,3 +91,29 @@ let countLocalMaxChurch list =
         | _::tail -> count acc tail
         | _ -> acc
     count 0 list
+
+// 1.42.1
+let belowAverageList list =
+    let avg = List.averageBy float list
+    list |> List.filter (fun x -> float x < avg)
+
+// 1.42.2
+let belowAverageChurch list =
+    let average list =
+        let rec calculate sum count = function
+            | [] -> 
+                if count = 0 then 0.0
+                else float sum / float count
+            | head::tail -> calculate (sum + head) (count + 1) tail
+        calculate 0 0 list
+
+    let avg = average list
+    let rec filterBelow acc list = 
+        match list with
+        | [] -> acc
+        | head::tail ->
+            if float head < avg then
+                filterBelow (head::acc) tail
+            else
+                filterBelow acc tail
+    filterBelow [] list |> List.rev
