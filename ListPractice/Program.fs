@@ -83,4 +83,15 @@ let main argv =
     Console.WriteLine("<-------->")
     Console.WriteLine("Order of lowercase letters")
     Console.WriteLine(areLettersOrdered "aBcDeFg")
+
+    Console.WriteLine("<-------->")
+    Console.WriteLine("Frequency deviation")
+    let englishFreq = 
+        [ ('e', 0.127); ('t', 0.091); ('a', 0.082); 
+        ('o', 0.075); ('i', 0.070); ('n', 0.067) ]
+        |> Map.ofList
+
+    let input = "hello world"
+    let result = sortStringByFrequencyDeviation input englishFreq
+    Console.WriteLine(result)
     0
