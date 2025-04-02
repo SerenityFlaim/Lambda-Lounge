@@ -74,4 +74,9 @@ let main argv =
     let list = [1; -2; 8; 3; 4; 16; 64]
     Console.WriteLine("List: {0}", belowAverageList list)
     Console.WriteLine("Church: {0}", belowAverageChurch list)
+
+    Console.WriteLine("<------------->")
+    Console.WriteLine("1.52 - Elements below average")
+    Console.WriteLine("List: {0}", primeFactorsList 36)
+    Console.WriteLine("Church: {0}", primeFactorsChurch 36)
     0

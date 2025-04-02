@@ -117,3 +117,32 @@ let belowAverageChurch list =
             else
                 filterBelow acc tail
     filterBelow [] list |> List.rev
+
+// 1.52.1
+let primeFactorsList n =
+    let rec factorize n p acc =
+        match n with
+        | 1 -> acc
+        | _ when n % p = 0 -> factorize (n/p) p (p::acc)
+        | _ -> factorize n (p + 1) acc
+    match n with
+    | x when x < 2 -> []
+    | _ -> factorize n 2 [] |> List.rev
+
+// 1.52.2
+let primeFactorsChurch n =
+    let rec reverseList acc = function
+        | [] -> acc
+        | head::tail -> reverseList (head::acc) tail
+
+    let rec factorize n p acc =
+        match n with
+        | 1 -> acc
+        | _ when n % p = 0 -> factorize (n/p) p (p::acc)
+        | _ -> factorize n (p + 1) acc
+
+    match n with
+    | x when x < 2 -> []
+    | _ -> 
+        let factors = factorize n 2 []
+        reverseList [] factors  
