@@ -34,4 +34,11 @@ let main argv =
 
     let result = createTuples listA listB listC
     Console.WriteLine(result)
+
+    Console.WriteLine("<------------->")
+    Console.WriteLine("Enter strings (empty string as finish):")
+    let stringList = readStrings
+
+    let sortedStrings = sortByLength stringList
+    Console.WriteLine("Sorted strings:\n{0}", String.Join("\n", sortedStrings))
     0

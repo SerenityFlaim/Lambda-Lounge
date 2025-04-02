@@ -39,6 +39,7 @@ let findEvenSum list =
 let countUneven list = 
     listTraverseCondition list (fun x y -> x+1) (fun x -> x%2=1) 0
 
+//7
 let maxList list =
     listTraverseCondition list (fun x y -> if x > y then x else y) (fun x -> true) System.Int32.MinValue
 
@@ -108,3 +109,14 @@ let createTuples listA listB listC =
     let sortedC = conditionSort listC countDivisors true
 
     List.zip3 sortedA sortedB sortedC
+
+//10
+let sortByLength (strings: string list) =
+    strings |> List.sortBy String.length
+
+let readStrings =
+    let rec read acc =
+        let input = Console.ReadLine()
+        if input = "" then List.rev acc
+        else read (input :: acc)
+    read []
