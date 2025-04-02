@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Task18.fsx" />
     <Compile Include="Task17.fsx" />
     <Compile Include="ListOps.fs" />
     <Compile Include="ListTasks.fs" />
