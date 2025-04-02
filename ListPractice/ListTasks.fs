@@ -1,5 +1,6 @@
 module ListTasks
 open System
+open ListOps
 // 1.2.1
 let findMinIndexList list =
     list 
@@ -45,3 +46,30 @@ let reverseBetweenMinMaxChurch list =
                 processList (index+1) tail (head::res)
     
     processList 0 list []
+
+// 1.22.1
+let countMinInRangeList list a b =
+    let sublist = list |> List.skip a |> List.take (b - a + 1)
+    let minVal = List.min sublist
+    sublist |> List.filter (fun x -> x = minVal) |> List.length
+
+// 1.22.2
+let countMinInRangeChurch lst a b =
+    let rec takeRange start stop acc list = 
+        match list with
+        | [] -> acc
+        | head::tail ->
+            if start > stop then acc
+            elif start > 0 then takeRange (start-1) (stop-1) acc tail
+            else takeRange start (stop-1) (head::acc) tail
+    
+    let sublist = takeRange a b [] lst |> List.rev
+    
+    let minVal = findMinElement sublist
+    
+    let rec countMin cnt list = 
+        match list with
+        | [] -> cnt
+        | head::tail -> countMin (if head = minVal then cnt + 1 else cnt) tail
+    
+    countMin 0 sublist

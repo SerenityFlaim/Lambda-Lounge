@@ -56,4 +56,10 @@ let main argv =
     let list = [1; -2; 8; 3; 4; 16; 64]
     Console.WriteLine("List: {0}", reverseBetweenMinMaxList list)
     Console.WriteLine("Church: {0}", reverseBetweenMinMaxChurch list)
+
+    Console.WriteLine("<------------->")
+    Console.WriteLine("1.22 - Min elements in a..b")
+    let list = [1; -2; -2; 3; 4; 16; 64]
+    Console.WriteLine("List: {0}", countMinInRangeList list 1 5)
+    Console.WriteLine("Church: {0}", countMinInRangeChurch list 1 5)
     0
