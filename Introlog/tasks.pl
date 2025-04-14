@@ -40,3 +40,13 @@ b_s(X, Y) :-
     X \= Y.
 
 b_s(X) :- b_s(X, Y), write(Y), nl, fail.
+
+father(X, Y) :-
+    man(X),
+    child(Y, X).
+
+wife(X, Y) :-
+    woman(X),
+    man(Y),
+    child(C, X),
+    child(C, Y).
