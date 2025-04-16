@@ -131,7 +131,7 @@ question8(X8):- write("Does your language has sufficient parallel computing supp
 				read(X8).
 
 pr:-	question1(X1),question2(X2),question3(X3),question4(X4),
-		question5(X5),question6(X6),question7(X7),
+		question5(X5),question6(X6),question7(X7),question8(X8),
 		high(X,X1),decl(X,X2),interpret(X,X3),oop(X,X4),
 		cross(X,X5),visual(X,X6),mobile(X,X7),parallel(X,X8),
 		write(X).
