@@ -256,3 +256,34 @@ elements_between_first_and_last_max(List, Elements) :-
         (Start =< End -> sublist(List, Start, End, Elements); Elements = [])
     ;   Elements = []  % Максимум один
     ).
+
+%Task 4
+solve_liquids :-
+    Vessels = [_,_,_,_],
+    Liquids = [milk, lemonade, kvas, water],
+
+    in_list(Vessels, [bottle, _, not(milk), not(water)]),
+    (between(jug, lemonade, kvas, Vessels); between(kvas, lemonade, jug, Vessels)),
+
+    in_list(Vessels, [jar, _, not(lemonade), not(water)]),
+
+    (next_to(glass, jar, Vessels); next_to(jar, glass, Vessels)),
+    (next_to(glass, milk, Vessels); next_to(milk, glass, Vessels)),
+
+    findall([Vessel, Liquid], member([Vessel, Liquid, _, _], Vessels), Results),
+    print_results(Results).
+
+between(Y, X, Z, List) :-
+    append(_, [Y, X, Z|_], List).
+between(Y, X, Z, List) :-
+    append(_, [Z, X, Y|_], List).
+
+next_to(X, Y, List) :-
+    append(_, [X, Y|_], List).
+next_to(X, Y, List) :-
+    append(_, [Y, X|_], List).
+
+print_results([]).
+print_results([[Vessel, Liquid]|Rest]) :-
+    write(Vessel), write(': '), write(Liquid), nl,
+    print_results(Rest).
