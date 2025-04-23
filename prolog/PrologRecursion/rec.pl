@@ -417,3 +417,20 @@ duplicate(N, X, [X|T]) :-
     N1 is N - 1,
     duplicate(N1, X, T).
 
+%Task 7 
+brothers([andrey, vitia, kolia, dima, yura]).
+
+solve(BrokenBy) :-
+    brothers(Brothers),
+    member(BrokenBy, Brothers),
+    
+    (BrokenBy = vitia ; BrokenBy = kolia) -> Andrey = 1 ; Andrey = 0,
+    (BrokenBy \= vitia, BrokenBy \= yura) -> Vitia = 1 ; Vitia = 0,
+    ((Andrey + Vitia =:= 1) -> Dima = 1 ; Dima = 0),
+    (Dima =:= 0 -> Yura = 1 ; Yura = 0),
+    
+    TruthCount is Andrey + Vitia + Dima + Yura,
+    TruthCount >= 3,
+    
+    format('Окно разбил ~w.~n', [BrokenBy]),
+    format('Андрей: ~w, Витя: ~w, Дима: ~w, Юра: ~w~n', [Andrey, Vitia, Dima, Yura]).
