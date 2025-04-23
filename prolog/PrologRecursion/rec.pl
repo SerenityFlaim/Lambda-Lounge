@@ -175,3 +175,84 @@ count_divisors_down(N, D, Acc, Count) :-
     (N mod D =:= 0 -> NewAcc is Acc + 1; NewAcc is Acc),
     NextD is D + 1,
     count_divisors_down(N, NextD, NewAcc, Count).
+
+%Task 3
+% 3.1 Вывести индексы массива в порядке убывания соответствующих элементов
+index_element_pairs(List, Pairs) :-
+    index_element_pairs(List, 0, Pairs).
+
+index_element_pairs([], _, []).
+index_element_pairs([H|T], Index, [(Index, H)|RestPairs]) :-
+    NextIndex is Index + 1,
+    index_element_pairs(T, NextIndex, RestPairs).
+
+% Предикат для сравнения пар по убыванию элементов
+compare_pairs(Order, (_, A), (_, B)) :-
+    compare(Order, B, A).
+
+indices_in_decreasing_order(List, Indices) :-
+    index_element_pairs(List, Pairs),
+    predsort(compare_pairs, Pairs, SortedPairs),
+    pairs_keys(SortedPairs, Indices).
+
+pairs_keys([], []).
+pairs_keys([(K,_)|T], [K|RestKeys]) :-
+    pairs_keys(T, RestKeys).
+
+% 3.2 Найти элементы между первым и вторым максимальным
+first_max(List, Max, Index) :-
+    max_list(List, Max),
+    nth0(Index, List, Max).
+
+second_max(List, FirstMax, SecondMax, SecondIndex) :-
+    exclude(=(FirstMax), List, FilteredList),
+    (   FilteredList = [] -> SecondMax = FirstMax, SecondIndex = -1  % Все элементы одинаковые
+    ;   max_list(FilteredList, SecondMax),
+        nth0(SecondIndex, List, SecondMax),
+        dif(SecondIndex, FirstIndex)  % Убедимся, что это другой индекс
+    ).
+
+elements_between_first_and_second_max(List, Elements) :-
+    first_max(List, FirstMax, FirstIndex),
+    second_max(List, FirstMax, SecondMax, SecondIndex),
+    (   FirstIndex < SecondIndex ->
+        Start is FirstIndex + 1,
+        End is SecondIndex - 1,
+        (Start =< End -> sublist(List, Start, End, Elements); Elements = [])
+    ;   FirstIndex > SecondIndex ->
+        Start is SecondIndex + 1,
+        End is FirstIndex - 1,
+        (Start =< End -> sublist(List, Start, End, Elements); Elements = [])
+    ;   Elements = []  % Максимумы совпадают или стоят рядом
+    ).
+
+% Вспомогательный предикат для извлечения подсписка
+sublist(List, Start, End, Sublist) :-
+    findall(X, (between(Start, End, I), nth0(I, List, X)), Sublist).
+
+% 3.3. Найти элементы между первым и последним максимальным
+
+first_and_last_max_indices(List, FirstIndex, LastIndex) :-
+    max_list(List, Max),
+    nth0(FirstIndex, List, Max),
+    last_max_index(List, Max, LastIndex).
+
+last_max_index(List, Max, LastIndex) :-
+    length(List, Len),
+    LastIndex is Len - 1,
+    nth0(LastIndex, List, Max).
+last_max_index(List, Max, LastIndex) :-
+    length(List, Len),
+    LastCandidate is Len - 1,
+    nth0(LastCandidate, List, X),
+    X \= Max,
+    last_max_index(List, Max, LastIndex).
+
+elements_between_first_and_last_max(List, Elements) :-
+    first_and_last_max_indices(List, FirstIndex, LastIndex),
+    (   FirstIndex < LastIndex ->
+        Start is FirstIndex + 1,
+        End is LastIndex - 1,
+        (Start =< End -> sublist(List, Start, End, Elements); Elements = [])
+    ;   Elements = []  % Максимум один
+    ).
