@@ -335,3 +335,85 @@ compute_product(N, Product) :-
     max_not_coprime_not_div(N, Max),
     digit_less_5(N, Sum),
     Product is Max * Sum.
+
+% 6.1 Найти минимальный четный элемент в целочисленном массиве
+
+min_even([], _) :- fail.
+
+min_even([H|T], Min) :-
+    H mod 2 =:= 0,
+    min_even(T, H, Min).
+
+min_even([H|T], Min) :-
+    H mod 2 =\= 0,
+    min_even(T, Min).
+
+min_even([], CurrentMin, CurrentMin).
+min_even([H|T], CurrentMin, Min) :-
+    H mod 2 =:= 0,
+    (H < CurrentMin -> NewMin = H ; NewMin = CurrentMin),
+    min_even(T, NewMin, Min).
+min_even([H|T], CurrentMin, Min) :-
+    H mod 2 =\= 0,
+    min_even(T, CurrentMin, Min).
+
+% ?- min_even([3, 8, 2, 5, 4], Min).
+% Min = 2
+
+% 6.2  Построение списка простых делителей с учетом кратности
+is_prime(2) :- !.
+is_prime(3) :- !.
+is_prime(N) :-
+    N > 3,
+    N mod 2 =\= 0,
+    \+ has_factor(N, 3).
+
+has_factor(N, K) :-
+    K * K =< N,
+    (N mod K =:= 0 -> true ; K1 is K + 2, has_factor(N, K1)).
+
+prime_factors(1, []) :- !.
+prime_factors(N, [H|T]) :-
+    N > 1,
+    first_prime_factor(N, 2, H),
+    N1 is N // H,
+    prime_factors(N1, T).
+
+first_prime_factor(N, K, K) :-
+    N mod K =:= 0,
+    is_prime(K).
+first_prime_factor(N, K, P) :-
+    N mod K =\= 0,
+    K1 is K + 1,
+    first_prime_factor(N, K1, P).
+
+count_degree(N, P, Count) :-
+    count_degree(N, P, 0, Count).
+
+count_degree(N, P, Acc, Acc) :-
+    N mod P =\= 0, !.
+count_degree(N, P, Acc, Count) :-
+    N mod P =:= 0,
+    N1 is N // P,
+    Acc1 is Acc + 1,
+    count_degree(N1, P, Acc1, Count).
+
+prime_divisors(N, Result) :-
+    N > 1,
+    prime_factors(N, UniquePrimes),
+    sort(UniquePrimes, SortedPrimes),
+    expand_primes(N, SortedPrimes, Result).
+
+expand_primes(_, [], []).
+expand_primes(N, [P|Ps], Expanded) :-
+    count_degree(N, P, Count),
+    duplicate(Count, P, DupP),
+    expand_primes(N, Ps, Rest),
+    append(DupP, Rest, Expanded).
+
+duplicate(0, _, []) :- !.
+duplicate(N, X, [X|T]) :-
+    N > 0,
+    N1 is N - 1,
+    duplicate(N1, X, T).
+
