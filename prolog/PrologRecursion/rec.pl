@@ -287,3 +287,51 @@ print_results([]).
 print_results([[Vessel, Liquid]|Rest]) :-
     write(Vessel), write(': '), write(Liquid), nl,
     print_results(Rest).
+
+
+%Task 5
+% 5.1 Найти количество четных чисел, не взаимно простых с данным
+gcd(X, 0, X) :- !.
+gcd(X, Y, G) :- Z is X mod Y, gcd(Y, Z, G).
+
+not_coprime(A, B) :- gcd(A, B, G), G > 1.
+
+count_even_not_coprime(N, Count) :-
+    findall(X, (between(1, N, X), X mod 2 =:= 0, not_coprime(X, N)), L),
+    length(L, Count).
+
+% 5.2. Найти произведение максимального числа, не взаимно простого с данным,
+% не делящегося на наименьший делитель исходного числа,
+% и суммы цифр числа, меньших 5
+% Нахождение наименьшего делителя числа (>1)
+
+smallest_divisor(N, D) :-
+    N > 1,
+    between(2, N, D),
+    N mod D =:= 0,
+    !.
+
+digit_less_5(N, Sum) :-
+    number_digits(N, Digits),
+    include(>(5), Digits, Filtered),
+    sum_list(Filtered, Sum).
+
+number_digits(N, Digits) :-
+    number_chars(N, Chars),
+    maplist(char_number, Chars, Digits).
+
+char_number(C, N) :- char_type(C, digit(N)).
+
+max_not_coprime_not_div(N, Max) :-
+    smallest_divisor(N, SD),
+    findall(X, (
+        between(1, N, X),
+        not_coprime(X, N),
+        X mod SD =\= 0
+    ), List),
+    max_list(List, Max).
+
+compute_product(N, Product) :-
+    max_not_coprime_not_div(N, Max),
+    digit_less_5(N, Sum),
+    Product is Max * Sum.
