@@ -109,3 +109,69 @@ remove_if_sum_equal([], _, []).
 remove_if_sum_equal([X | Tail], TargetSum, Result) :-
     digit_sum_down(X, Sum),
     (Sum =:= TargetSum -> remove_if_sum_equal(Tail, TargetSum, Result); Result = [X | NewResult], remove_if_sum_equal(Tail, TargetSum, NewResult)).
+
+%Task 2
+%Max_digit_in_number
+max_digit_up(X, X) :- X < 10, !.
+max_digit_up(X, Max) :-
+    X >= 10,
+    LastDigit is X mod 10,
+    Rest is X // 10,
+    max_digit_up(Rest, MaxRest),
+    Max is max(LastDigit, MaxRest).
+
+max_digit_down(X, Max) :- max_digit_down(X, 0, Max).
+
+max_digit_down(0, Acc, Acc) :- !.
+max_digit_down(X, Acc, Max) :-
+    X > 0,
+    LastDigit is X mod 10,
+    NewAcc is max(Acc, LastDigit),
+    Rest is X // 10,
+    max_digit_down(Rest, NewAcc, Max).
+
+%Sum of digits that is divisible by 3
+sum_div3_up(X, Sum) :-
+    X < 10,
+    (X mod 3 =:= 0 -> Sum = X; Sum = 0), !.
+sum_div3_up(X, Sum) :-
+    X >= 10,
+    LastDigit is X mod 10,
+    Rest is X // 10,
+    sum_div3_up(Rest, SumRest),
+    (LastDigit mod 3 =:= 0 -> Sum is SumRest + LastDigit; Sum = SumRest).
+
+sum_div3_down(X, Sum) :- sum_div3_down(X, 0, Sum).
+
+sum_div3_down(0, Acc, Acc) :- !.
+sum_div3_down(X, Acc, Sum) :-
+    X > 0,
+    LastDigit is X mod 10,
+    (LastDigit mod 3 =:= 0 -> NewAcc is Acc + LastDigit; NewAcc is Acc),
+    Rest is X // 10,
+    sum_div3_down(Rest, NewAcc, Sum).
+
+%Number of divisors
+count_divisors_up(N, Count) :-
+    count_divisors_up(N, 1, 0, Count).
+
+count_divisors_up(N, D, Acc, Count) :-
+    D =< N,
+    (N mod D =:= 0 ->
+        NewAcc is Acc + 1,
+        NextD is D + 1;
+        NewAcc is Acc,
+        NextD is D + 1),
+    count_divisors_up(N, NextD, NewAcc, Count).
+
+count_divisors_up(N, D, Count, Count) :- D > N.
+
+count_divisors_down(N, Count) :-
+    count_divisors_down(N, 1, 0, Count).
+
+count_divisors_down(N, D, Acc, Acc) :- D > N, !.
+count_divisors_down(N, D, Acc, Count) :-
+    D =< N,
+    (N mod D =:= 0 -> NewAcc is Acc + 1; NewAcc is Acc),
+    NextD is D + 1,
+    count_divisors_down(N, NextD, NewAcc, Count).
