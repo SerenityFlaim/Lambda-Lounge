@@ -1,0 +1,15 @@
+solution([X1, X2, X3, X4, X5]) :-
+    my_between(1, 7, X1),   
+    between(1, 6, X2),        
+    S12 is X1 + X2,
+    RemainingSum is 20 - S12,
+    RemainingSum >= 3,         
+    RemainingSum =< 12,         
+    my_between(1, 5, X3),      
+    S123 is S12 + X3,
+    RemainingSum2 is 20 - S123,
+    RemainingSum2 >= 2,       
+    RemainingSum2 =< 7,         
+    my_between(1, 4, X4),        
+    X5 is RemainingSum2 - X4, 
+    my_between(1, 3, X5).         
